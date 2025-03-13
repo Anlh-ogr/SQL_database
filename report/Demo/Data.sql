@@ -64,6 +64,77 @@ insert into ChuyenDe values ('PH10', 'Dao Duc Nghe Nghiep');
 
 select * from ChuyenDe;
 
+-- Nhap du lieu vao table NganhHoc_ChuyenDe
+-- CNTT: 7 chính + 1 phụ
+insert into NganhHoc_ChuyenDe values ('CNTT', 'CN01'); -- Lap Trinh Co Ban
+insert into NganhHoc_ChuyenDe values ('CNTT', 'CN02'); -- Cau Truc Du Lieu
+insert into NganhHoc_ChuyenDe values ('CNTT', 'CN03'); -- Thuat Toan va Giai Thuat
+insert into NganhHoc_ChuyenDe values ('CNTT', 'CN04'); -- Lap Trinh Huong Doi Tuong
+insert into NganhHoc_ChuyenDe values ('CNTT', 'CN05'); -- Lap Trinh Web Co Ban
+insert into NganhHoc_ChuyenDe values ('CNTT', 'CN07'); -- Co So Du Lieu
+insert into NganhHoc_ChuyenDe values ('CNTT', 'CN09'); -- Mang May Tinh
+insert into NganhHoc_ChuyenDe values ('CNTT', 'PH01'); -- Triet Hoc Mac - Lenin
+
+-- ATTT: 4 chính + 4 phụ
+insert into NganhHoc_ChuyenDe values ('ATTT', 'AT01'); -- An Toan Mang
+insert into NganhHoc_ChuyenDe values ('ATTT', 'AT02'); -- Ma Hoa va Bao Mat
+insert into NganhHoc_ChuyenDe values ('ATTT', 'AT03'); -- Kiem Tra va Danh Gia An Toan He Thong
+insert into NganhHoc_ChuyenDe values ('ATTT', 'AT04'); -- Quan Ly Rui Ro Thong Tin
+insert into NganhHoc_ChuyenDe values ('ATTT', 'PH01'); -- Triet Hoc Mac - Lenin
+insert into NganhHoc_ChuyenDe values ('ATTT', 'PH02'); -- Lich Su Dang
+insert into NganhHoc_ChuyenDe values ('ATTT', 'PH03'); -- Tu Tuong Ho Chi Minh
+insert into NganhHoc_ChuyenDe values ('ATTT', 'PH04'); -- Giao Duc Quoc Phong
+
+-- KHMT: 5 chính + 3 phụ
+insert into NganhHoc_ChuyenDe values ('KHMT', 'CN02'); -- Cau Truc Du Lieu
+insert into NganhHoc_ChuyenDe values ('KHMT', 'CN03'); -- Thuat Toan va Giai Thuat
+insert into NganhHoc_ChuyenDe values ('KHMT', 'KT02'); -- Toan Roi Rac
+insert into NganhHoc_ChuyenDe values ('KHMT', 'KT03'); -- Tinh Toan Song Song
+insert into NganhHoc_ChuyenDe values ('KHMT', 'CN07'); -- Co So Du Lieu
+insert into NganhHoc_ChuyenDe values ('KHMT', 'PH01'); -- Triet Hoc Mac - Lenin
+insert into NganhHoc_ChuyenDe values ('KHMT', 'PH02'); -- Lich Su Dang
+insert into NganhHoc_ChuyenDe values ('KHMT', 'PH03'); -- Tu Tuong Ho Chi Minh
+
+-- KTPM: 4 chính + 3 phụ
+insert into NganhHoc_ChuyenDe values ('KTPM', 'KT01'); -- Ky Thuat Lap Trinh
+insert into NganhHoc_ChuyenDe values ('KTPM', 'KT04'); -- Cong Nghe Phan Mem
+insert into NganhHoc_ChuyenDe values ('KTPM', 'CN04'); -- Lap Trinh Huong Doi Tuong
+insert into NganhHoc_ChuyenDe values ('KTPM', 'CN05'); -- Lap Trinh Web Co Ban
+insert into NganhHoc_ChuyenDe values ('KTPM', 'PH01'); -- Triet Hoc Mac - Lenin
+insert into NganhHoc_ChuyenDe values ('KTPM', 'PH02'); -- Lich Su Dang
+insert into NganhHoc_ChuyenDe values ('KTPM', 'PH03'); -- Tu Tuong Ho Chi Minh
+
+-- HTTT: 3 chính + 3 phụ
+insert into NganhHoc_ChuyenDe values ('HTTT', 'HT01'); -- He Thong Nhung
+insert into NganhHoc_ChuyenDe values ('HTTT', 'HT02'); -- IoT (Internet of Things)
+insert into NganhHoc_ChuyenDe values ('HTTT', 'CN08'); -- Thiet Ke va Phan Tich He Thong
+insert into NganhHoc_ChuyenDe values ('HTTT', 'PH01'); -- Triet Hoc Mac - Lenin
+insert into NganhHoc_ChuyenDe values ('HTTT', 'PH02'); -- Lich Su Dang
+insert into NganhHoc_ChuyenDe values ('HTTT', 'PH03'); -- Tu Tuong Ho Chi Minh
+
+-- TTNT: 5 chính + 3 phụ
+insert into NganhHoc_ChuyenDe values ('TTNT', 'AI01'); -- Tri Tue Nhan Tao
+insert into NganhHoc_ChuyenDe values ('TTNT', 'AI02'); -- Hoc May
+insert into NganhHoc_ChuyenDe values ('TTNT', 'AI03'); -- Xu Ly Ngon Ngu Tu Nhien
+insert into NganhHoc_ChuyenDe values ('TTNT', 'AI04'); -- Thi Giac May Tinh
+insert into NganhHoc_ChuyenDe values ('TTNT', 'AI05'); -- Phan Tich va Khai Thac Du Lieu
+insert into NganhHoc_ChuyenDe values ('TTNT', 'PH01'); -- Triet Hoc Mac - Lenin
+insert into NganhHoc_ChuyenDe values ('TTNT', 'PH02'); -- Lich Su Dang
+insert into NganhHoc_ChuyenDe values ('TTNT', 'PH03'); -- Tu Tuong Ho Chi Minh
+
+-- KHDL: 5 chính + 3 phụ
+insert into NganhHoc_ChuyenDe values ('KHDL', 'DS01'); -- Phan Tich Du Lieu
+insert into NganhHoc_ChuyenDe values ('KHDL', 'DS02'); -- Truc Quan Hoa Du Lieu
+insert into NganhHoc_ChuyenDe values ('KHDL', 'DS03'); -- Khoa Hoc Du Lieu
+insert into NganhHoc_ChuyenDe values ('KHDL', 'DS04'); -- Du Lieu Lon (Big Data)
+insert into NganhHoc_ChuyenDe values ('KHDL', 'DS05'); -- Kho Du Lieu va OLAP
+insert into NganhHoc_ChuyenDe values ('KHDL', 'PH01'); -- Triet Hoc Mac - Lenin
+insert into NganhHoc_ChuyenDe values ('KHDL', 'PH02'); -- Lich Su Dang
+insert into NganhHoc_ChuyenDe values ('KHDL', 'PH03'); -- Tu Tuong Ho Chi Minh
+
+select * from NganhHoc_ChuyenDe;
+
+
 
 -- Nhap du lieu vao table SinhVien
 insert into SinhVien values ('21020001', 'Tran', 'Thi Ngoc' ,'Anh', 'Nu', convert(date, '14/07/2003', 103), 'TPHCM', 'CNTT');
@@ -160,72 +231,8 @@ insert into DangKy values ('DK020', '21038912', 'CN07'); -- Trinh Thi Ngoc Suong
 select * from DangKy;
 
 
--- Nhap du lieu vao table NganhHoc_ChuyenDe
--- CNTT: 7 chính + 1 phụ
-insert into NganhHoc_ChuyenDe values ('CNTT', 'CN01'); -- Lap Trinh Co Ban
-insert into NganhHoc_ChuyenDe values ('CNTT', 'CN02'); -- Cau Truc Du Lieu
-insert into NganhHoc_ChuyenDe values ('CNTT', 'CN03'); -- Thuat Toan va Giai Thuat
-insert into NganhHoc_ChuyenDe values ('CNTT', 'CN04'); -- Lap Trinh Huong Doi Tuong
-insert into NganhHoc_ChuyenDe values ('CNTT', 'CN05'); -- Lap Trinh Web Co Ban
-insert into NganhHoc_ChuyenDe values ('CNTT', 'CN07'); -- Co So Du Lieu
-insert into NganhHoc_ChuyenDe values ('CNTT', 'CN09'); -- Mang May Tinh
-insert into NganhHoc_ChuyenDe values ('CNTT', 'PH01'); -- Triet Hoc Mac - Lenin
 
--- ATTT: 4 chính + 4 phụ
-insert into NganhHoc_ChuyenDe values ('ATTT', 'AT01'); -- An Toan Mang
-insert into NganhHoc_ChuyenDe values ('ATTT', 'AT02'); -- Ma Hoa va Bao Mat
-insert into NganhHoc_ChuyenDe values ('ATTT', 'AT03'); -- Kiem Tra va Danh Gia An Toan He Thong
-insert into NganhHoc_ChuyenDe values ('ATTT', 'AT04'); -- Quan Ly Rui Ro Thong Tin
-insert into NganhHoc_ChuyenDe values ('ATTT', 'PH01'); -- Triet Hoc Mac - Lenin
-insert into NganhHoc_ChuyenDe values ('ATTT', 'PH02'); -- Lich Su Dang
-insert into NganhHoc_ChuyenDe values ('ATTT', 'PH03'); -- Tu Tuong Ho Chi Minh
-insert into NganhHoc_ChuyenDe values ('ATTT', 'PH04'); -- Giao Duc Quoc Phong
-
--- KHMT: 5 chính + 3 phụ
-insert into NganhHoc_ChuyenDe values ('KHMT', 'CN02'); -- Cau Truc Du Lieu
-insert into NganhHoc_ChuyenDe values ('KHMT', 'CN03'); -- Thuat Toan va Giai Thuat
-insert into NganhHoc_ChuyenDe values ('KHMT', 'KT02'); -- Toan Roi Rac
-insert into NganhHoc_ChuyenDe values ('KHMT', 'KT03'); -- Tinh Toan Song Song
-insert into NganhHoc_ChuyenDe values ('KHMT', 'CN07'); -- Co So Du Lieu
-insert into NganhHoc_ChuyenDe values ('KHMT', 'PH01'); -- Triet Hoc Mac - Lenin
-insert into NganhHoc_ChuyenDe values ('KHMT', 'PH02'); -- Lich Su Dang
-insert into NganhHoc_ChuyenDe values ('KHMT', 'PH03'); -- Tu Tuong Ho Chi Minh
-
--- KTPM: 4 chính + 3 phụ
-insert into NganhHoc_ChuyenDe values ('KTPM', 'KT01'); -- Ky Thuat Lap Trinh
-insert into NganhHoc_ChuyenDe values ('KTPM', 'KT04'); -- Cong Nghe Phan Mem
-insert into NganhHoc_ChuyenDe values ('KTPM', 'CN04'); -- Lap Trinh Huong Doi Tuong
-insert into NganhHoc_ChuyenDe values ('KTPM', 'CN05'); -- Lap Trinh Web Co Ban
-insert into NganhHoc_ChuyenDe values ('KTPM', 'PH01'); -- Triet Hoc Mac - Lenin
-insert into NganhHoc_ChuyenDe values ('KTPM', 'PH02'); -- Lich Su Dang
-insert into NganhHoc_ChuyenDe values ('KTPM', 'PH03'); -- Tu Tuong Ho Chi Minh
-
--- HTTT: 3 chính + 3 phụ
-insert into NganhHoc_ChuyenDe values ('HTTT', 'HT01'); -- He Thong Nhung
-insert into NganhHoc_ChuyenDe values ('HTTT', 'HT02'); -- IoT (Internet of Things)
-insert into NganhHoc_ChuyenDe values ('HTTT', 'CN08'); -- Thiet Ke va Phan Tich He Thong
-insert into NganhHoc_ChuyenDe values ('HTTT', 'PH01'); -- Triet Hoc Mac - Lenin
-insert into NganhHoc_ChuyenDe values ('HTTT', 'PH02'); -- Lich Su Dang
-insert into NganhHoc_ChuyenDe values ('HTTT', 'PH03'); -- Tu Tuong Ho Chi Minh
-
--- TTNT: 5 chính + 3 phụ
-insert into NganhHoc_ChuyenDe values ('TTNT', 'AI01'); -- Tri Tue Nhan Tao
-insert into NganhHoc_ChuyenDe values ('TTNT', 'AI02'); -- Hoc May
-insert into NganhHoc_ChuyenDe values ('TTNT', 'AI03'); -- Xu Ly Ngon Ngu Tu Nhien
-insert into NganhHoc_ChuyenDe values ('TTNT', 'AI04'); -- Thi Giac May Tinh
-insert into NganhHoc_ChuyenDe values ('TTNT', 'AI05'); -- Phan Tich va Khai Thac Du Lieu
-insert into NganhHoc_ChuyenDe values ('TTNT', 'PH01'); -- Triet Hoc Mac - Lenin
-insert into NganhHoc_ChuyenDe values ('TTNT', 'PH02'); -- Lich Su Dang
-insert into NganhHoc_ChuyenDe values ('TTNT', 'PH03'); -- Tu Tuong Ho Chi Minh
-
--- KHDL: 5 chính + 3 phụ
-insert into NganhHoc_ChuyenDe values ('KHDL', 'DS01'); -- Phan Tich Du Lieu
-insert into NganhHoc_ChuyenDe values ('KHDL', 'DS02'); -- Truc Quan Hoa Du Lieu
-insert into NganhHoc_ChuyenDe values ('KHDL', 'DS03'); -- Khoa Hoc Du Lieu
-insert into NganhHoc_ChuyenDe values ('KHDL', 'DS04'); -- Du Lieu Lon (Big Data)
-insert into NganhHoc_ChuyenDe values ('KHDL', 'DS05'); -- Kho Du Lieu va OLAP
-insert into NganhHoc_ChuyenDe values ('KHDL', 'PH01'); -- Triet Hoc Mac - Lenin
-insert into NganhHoc_ChuyenDe values ('KHDL', 'PH02'); -- Lich Su Dang
-insert into NganhHoc_ChuyenDe values ('KHDL', 'PH03'); -- Tu Tuong Ho Chi Minh
-
-select * from NganhHoc_ChuyenDe;
+-- kiem tra
+select MaCD from LopHoc where MaLop = 'CN01';
+select MaNganh from SinhVien where MaSV = '21020001';
+select * from NganhHoc_ChuyenDe where MaNganh = 'CNTT' and MaCD = 'CN02';
