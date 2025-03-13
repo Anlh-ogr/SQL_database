@@ -659,5 +659,3 @@ begin
 end;
 go
 exec sp_XemLichSuDangKy '21020001';
-
-
