@@ -198,7 +198,7 @@ begin
 	where DangKy.MaSV = @MaSV and LopHoc.HocKy = @HocKy and LopHoc.NamHoc = @NamHoc
 
 	-- Neu SV da dang ky toi da 3 chuyen de trong hoc ky nay
-	if @Count >= 3
+	if @Count > 3
 	begin
 		raiserror('Sinh vien khong duoc dang ky toi da 3 chuyen de trong hoc ky nay', 16, 1)
 		rollback transaction
@@ -262,7 +262,7 @@ drop trigger if exists Check_Max8_NganhHoc_ChuyenDe
 go
 create trigger Check_Max8_NganhHoc_ChuyenDe
 on NganhHoc_ChuyenDe
-after insert
+for insert
 as
 begin
 	declare @MaNganh varchar(10), @Count int;
@@ -279,9 +279,9 @@ begin
 		rollback transaction
 	end
 end;
+go
 
-
--- Trigger: Xoa nganh trong NganhHoc (Bang NganhHoc - Instead Of Delete)
+-- Trigger: Xoa nganh trong NganhHoc (Bang NganhHoc - Instead Of Delete) 
 drop trigger if exists Delete_NganhHoc
 go
 create trigger Delete_NganhHoc
@@ -290,12 +290,25 @@ instead of delete
 as
 begin
 	declare @MaNganh varchar(10)
+	declare @SoSVChuyen int
+	
+	-- lay ma nganh tu bang deleted
 	select @MaNganh = MaNganh from deleted
+
+	-- Dem so sinh vien chuyen nganh sang cntt
+	select @SoSVChuyen = count(*)
+	from SinhVien
+	where MaNganh = @MaNganh
 
 	-- chuyen nganh cua sinh vien ve nganh khac (CNTT)
 	update SinhVien
 	set MaNganh = 'CNTT'
 	where MaNganh = @MaNganh
+
+	-- update lai TongSoSVTungHoc cua nganh CNTT
+	update NganhHoc
+	set TongSoSVTungHoc = TongSoSVTungHoc + @SoSVChuyen
+	where MaNganh = 'CNTT'
 
 	-- Xoa du lieu trong NganhHoc
 	delete from NganhHoc_ChuyenDe where MaNganh = @MaNganh
@@ -303,6 +316,7 @@ begin
 	-- Xoa nganh
 	delete from NganhHoc where MaNganh = @MaNganh
 end;
+go
 
 
 -- Truy van du lieu Select: Xem thong tin sinh vien theo nganh hoc CNTT
@@ -351,6 +365,8 @@ group by LopHoc.MaLop, ChuyenDe.TenCD having count(DangKy.MaDK) > 2;
 
 -- Chuc nang cho toan bo phan he:
 -- 1. Xem danh sach nganh hoc
+drop proc if exists sp_XemDanhSachNganhHoc
+go
 create proc sp_XemDanhSachNganhHoc
 as
 begin
@@ -361,6 +377,8 @@ go
 exec sp_XemDanhSachNganhHoc;
 
 -- 2. Xem danh sach chuyen de
+drop proc if exists sp_XemDanhSachChuyenDe
+go
 create proc sp_XemDanhSachChuyenDe
 as
 begin
@@ -371,6 +389,8 @@ go
 exec sp_XemDanhSachChuyenDe;
 
 -- 3. Xem danh sach lop hoc
+drop proc if exists sp_XemDanhSachLopHoc
+go
 create proc sp_XemDanhSachLopHoc
 as
 begin
@@ -381,6 +401,8 @@ go
 exec sp_XemDanhSachLopHoc;
 
 -- 4. Xem danh sach sinh vien
+drop proc if exists sp_XemDanhSachSinhVien
+go
 create proc sp_XemDanhSachSinhVien
 as
 begin
@@ -391,6 +413,8 @@ go
 exec sp_XemDanhSachSinhVien;
 
 -- 5. Xem danh sach dang ky
+drop proc if exists sp_XemDanhSachDangKy
+go
 create proc sp_XemDanhSachDangKy
 as
 begin
@@ -401,6 +425,8 @@ go
 exec sp_XemDanhSachDangKy;
 
 -- 6. Xem danh sach nganh hoc - chuyen de
+drop proc if exists sp_XemDanhSachNganhHoc_ChuyenDe
+go
 create proc sp_XemDanhSachNganhHoc_ChuyenDe
 as
 begin
@@ -414,6 +440,8 @@ exec sp_XemDanhSachNganhHoc_ChuyenDe;
 
 -- Phan he quan tri vien (Admin):
 -- 1. Them nganh hoc moi
+drop proc if exists sp_ThemNganhHoc
+go
 create proc sp_ThemNganhHoc
 	@MaNganh varchar(10),
 	@TenNganh nvarchar(100),
@@ -433,6 +461,8 @@ go
 exec sp_ThemNganhHoc 'TKVM', N'Thiet Ke Vi Mach', 7;
 
 -- 2. Them chuyen de moi
+drop proc if exists sp_ThemChuyenDe
+go
 create proc sp_ThemChuyenDe
 	@MaCD varchar(10),
 	@TenCD nvarchar(100)
@@ -450,6 +480,8 @@ go
 exec sp_ThemChuyenDe 'MT01', N'Kien Truc May Tinh';
 
 -- 3. Them lop hoc moi
+drop proc if exists sp_ThemLopHoc
+go
 create proc sp_ThemLopHoc
 	@MaLop varchar(10),
 	@MaCD varchar(10),
@@ -471,6 +503,8 @@ go
 exec sp_ThemLopHoc 'MT01', 'MT01', 'HK1', '2024-2025', 30;
 
 -- 4. Thu tuc dang ky lop hoc
+drop proc if exists sp_DangKyLopHoc
+go
 create proc sp_DangKyLopHoc
 	@MaSV varchar(10),
 	@MaLop varchar(10)
@@ -483,8 +517,14 @@ begin
 		if @MaDK is null
 			set @MaDK = 'DK001'
 		else
-			set @MaDK = 'DK' + right('000' + cast(cast(right(@MaDK, 3) as int) + 1 as varchar(3)), 3)
-
+			begin
+				-- Lay 3 so cuoi cua MaDK, cong them 1, chuyen ve dang chuoi 3 ky tu
+				declare @SoDK int = cast(right(@MaDK, 3) as int) + 1
+				if @SoDK > 999
+					raiserror('Dat gioi han ma dang ky (999)', 16, 1)
+				else
+					set @MaDK = 'DK' + right('000' + cast(@SoDK as varchar(3)), 3)
+			end
 		insert into DangKy (MaDK, MaSV, MaLop)
 		values (@MaDK, @MaSV, @MaLop)
 		print N'Dang ky lop hoc thanh cong'
@@ -498,6 +538,8 @@ exec sp_DangKyLopHoc '21020001', 'CN02';
 
 
 -- 5. Thu tuc thong ke so luong sinh vien theo nganh hoc
+drop proc if exists sp_ThongKeSoLuongSinhVienTheoNganhHoc
+go
 create proc sp_ThongKeSoLuongSinhVienTheoNganhHoc
 as
 begin
@@ -511,6 +553,8 @@ exec sp_ThongKeSoLuongSinhVienTheoNganhHoc;
 
 
 -- 6. Thu tuc thong ke dang ky theo lop hoc
+drop proc if exists sp_ThongKeDangKyTheoLopHoc
+go
 create proc sp_ThongKeDangKyTheoLopHoc
 as
 begin
@@ -527,6 +571,8 @@ exec sp_ThongKeDangKyTheoLopHoc;
 
 -- Phan he sinh vien:
 -- 1. Xem thong tin ca nhan
+drop proc if exists sp_XemThongTinCaNhan
+go
 create proc sp_XemThongTinCaNhan
 	@MaSV varchar(10)
 as
@@ -539,9 +585,79 @@ go
 exec sp_XemThongTinCaNhan '21020001';
 
 -- 2. Xem danh sach lop hoc kha dung
+drop proc if exists sp_XemDanhSachLopHocKhaDung
+go
 create proc sp_XemDanhSachLopHocKhaDung
 	@MaSV varchar(10)
 as
 begin
-	select LopHoc.MaLop, ChuyenDe.TenCD, LopHoc.HocKy, LopHoc.NamHoc, LopHoc.SoSVToiDa, count(DangKy.MaDK) as SoLuongDK, LopHoc.SoSVToiDa - count(DangKy.MaDK) as ConTrong
-	
+	select LopHoc.MaLop, ChuyenDe.TenCD, LopHoc.HocKy, LopHoc.NamHoc, LopHoc.SoSVToiDa,
+		count(DangKy.MaDK) as SoLuongDK, LopHoc.SoSVToiDa - count(DangKy.MaDK) as ConTrong
+	from LopHoc
+	join ChuyenDe on LopHoc.MaCD = ChuyenDe.MaCD
+	join NganhHoc_ChuyenDe on ChuyenDe.MaCD = NganhHoc_ChuyenDe.MaCD
+	join SinhVien on NganhHoc_ChuyenDe.MaNganh = SinhVien.MaNganh
+	left join DangKy on LopHoc.MaLop = DangKy.MaLop
+	where SinhVien.MaSV = @MaSV
+	group by LopHoc.MaLop, ChuyenDe.TenCD, LopHoc.HocKy, LopHoc.NamHoc, LopHoc.SoSVToiDa having LopHoc.SoSVToiDa - count(DangKy.MaDK) > 0
+end;
+go
+exec sp_XemDanhSachLopHocKhaDung '21020001';
+
+
+-- 3. Dang ky lop hoc moi
+drop proc sp_DangKyLopHocMoi
+go
+create proc sp_DangKyLopHocMoi
+	@MaSV varchar(10),
+	@MaLop varchar(10)
+as
+begin
+	begin try
+		declare @MaDK varchar(10)
+		select @MaDK = max(MaDK) from DangKy
+		
+		if @MaDK is null
+			set @MaDK = 'DK001'
+		else
+			begin
+				-- Lay 3 so cuoi cua MaDK, cong them 1, chuyen ve dang chuoi 3 ky tu
+				declare @SoDK int = cast(right(@MaDK, 3) as int) + 1
+				if @SoDK > 999
+					raiserror('Dat gioi han ma dang ky (999)', 16, 1)
+				else
+					set @MaDK = 'DK' + right('000' + cast(@SoDK as varchar(3)), 3)
+			end
+		
+		insert into DangKy (MaDK, MaSV, MaLop)
+		values (@MaDK, @MaSV, @MaLop)
+		print N'Dang ky lop hoc thanh cong'
+	end try
+	begin catch
+		print N'Lop hoc da day'
+	end catch
+end;
+go
+exec sp_DangKyLopHocMoi '21020001', 'CN01';
+
+
+-- 4. Xem lich su dang ky
+drop proc if exists sp_XemLichSuDangKy
+go
+create proc sp_XemLichSuDangKy
+	@MaSV varchar(10)
+as
+begin
+	select SinhVien.MaSV, SinhVien.HoSV + ' ' + SinhVien.TenLotSV + ' ' + SinhVien.TenSV as HoTen, LopHoc.MaLop, ChuyenDe.TenCD, LopHoc.HocKy, LopHoc.NamHoc
+	from SinhVien
+	join DangKy on SinhVien.MaSV = DangKy.MaSV
+	join LopHoc on DangKy.MaLop = LopHoc.MaLop
+	join ChuyenDe on LopHoc.MaCD = ChuyenDe.MaCD
+	where SinhVien.MaSV = @MaSV
+	-- sap xep theo nam hoc - hoc ki
+	order by LopHoc.NamHoc, LopHoc.HocKy
+end;
+go
+exec sp_XemLichSuDangKy '21020001';
+
+
